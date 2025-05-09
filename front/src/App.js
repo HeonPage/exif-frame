@@ -81,7 +81,7 @@ function App() {
         formData.append("image", fileObj.file);
 
         const response = await fetch(
-          `http://${process.env.REACT_APP_BACKEND_API_URL}/api/upload`,
+          `${process.env.REACT_APP_BACKEND_API_URL}/api/upload`,
           {
             method: "POST",
             body: formData,
@@ -96,7 +96,7 @@ function App() {
         const processedResult = {
           id: fileObj.id,
           originalName: fileObj.file.name,
-          processedUrl: `http://${process.env.REACT_APP_BACKEND_API_URL}${data.processedImage}`,
+          processedUrl: `${process.env.REACT_APP_BACKEND_API_URL}${data.processedImage}`,
           exifData: data.exifData,
         };
 
@@ -113,7 +113,7 @@ function App() {
         });
 
         const response = await fetch(
-          `http://${process.env.REACT_APP_BACKEND_API_URL}/api/upload-multiple`,
+          `${process.env.REACT_APP_BACKEND_API_URL}/api/upload-multiple`,
           {
             method: "POST",
             body: formData,
@@ -133,7 +133,7 @@ function App() {
           (processedImage, index) => ({
             id: fileIdMap[index],
             originalName: filesToProcess[index].file.name,
-            processedUrl: `http://${process.env.REACT_APP_BACKEND_API_URL}${processedImage.path}`,
+            processedUrl: `${process.env.REACT_APP_BACKEND_API_URL}${processedImage.path}`,
             exifData: processedImage.exifData,
           })
         );
@@ -173,14 +173,14 @@ function App() {
       const imageList = processedImages.map((img) => ({
         originalName: img.originalName,
         processedPath: img.processedUrl.replace(
-          `http://${process.env.REACT_APP_BACKEND_API_URL}/uploads/`,
+          `${process.env.REACT_APP_BACKEND_API_URL}/uploads/`,
           ""
         ),
       }));
 
       // Create a request to the server to generate a ZIP file
       const response = await fetch(
-        `http://${process.env.REACT_APP_BACKEND_API_URL}/api/download-zip`,
+        `${process.env.REACT_APP_BACKEND_API_URL}/api/download-zip`,
         {
           method: "POST",
           headers: {
